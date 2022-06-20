@@ -1,5 +1,5 @@
 import React from "react";
-import style from '../styles/langToggle.module.scss';
+import style from '../style/langToggle.module.scss';
 import 'flag-icon-css/css/flag-icons.min.css'
 import i18n from "i18next";
 import {useTranslation} from "react-i18next";
