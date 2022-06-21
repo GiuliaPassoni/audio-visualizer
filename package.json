@@ -28,7 +28,8 @@
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
     "sass": "^1.52.3",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "youtube-mp3-downloader": "^0.7.10"
   },
   "scripts": {
     "start": "react-scripts start",
