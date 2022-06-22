@@ -1,0 +1,22 @@
+@use 'variables';
+
+
+.login{
+  width: 300px;
+  margin:auto;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  .icon{
+    display: block;
+    width: 150px;
+    height:150px;
+    border-radius: 50%;
+    padding: 2rem;
+    opacity: 70%;
+  }
+  .button{
+    display: block;
+    margin: 1rem auto;
+  }
+}
