@@ -1,14 +1,17 @@
-import React from "react";
+import React, {useState} from "react";
 import style from "../style/login.module.scss"
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
-import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { GoogleAuthProvider, signInWithPopup, signOut } from "firebase/auth";
 import { auth } from './firebase-config';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {solid} from "@fortawesome/fontawesome-svg-core/import.macro";
 
 
 export default function Login(){
+    const [userLoggedIn, setUserLoggedIn] = useState(false);
+    const [profilePic, setProfilePic] = useState('');
+
     const googleSignIn = () =>{
         const provider = new GoogleAuthProvider();
         signInWithPopup(auth, provider)
@@ -17,9 +20,12 @@ export default function Login(){
                 // const credential = GoogleAuthProvider.credentialFromResult(result);
                 // const token = credential.accessToken;
                 // // The signed-in user info.
-                // const user = result.user;
-                // // ...
                 console.log(result);
+                setUserLoggedIn(true);
+                const userName = result.user.displayName;
+                setProfilePic(result.user.photoURL);
+                localStorage.setItem("userName", userName);
+                // localStorage.setItem("profilePic", profilePic);
             }).catch((error) => {
             // Handle Errors here.
             // const errorCode = error.code;
@@ -32,12 +38,33 @@ export default function Login(){
         });
     }
 
+    const handleImgError = e => {
+        e.target.src = profilePic;
+    }
+
+    const googleLogOut = () => {
+        signOut(auth).then(() => {
+            setUserLoggedIn(false);
+            return(
+                <p>Sign out successful :) </p>
+            );
+        }).catch((error) => {
+            console.log(error);
+        });
+    }
 
     return(
         <section className={style.login}>
             <Card>
-                <FontAwesomeIcon icon={solid('user')} className={style.icon} />
-                <Button variant="contained" onClick={googleSignIn} className={style.button}>Log In</Button>
+                { userLoggedIn ===false
+                    && <> <FontAwesomeIcon icon={solid('user')} className={style.icon} />
+                        <Button variant="contained" onClick={googleSignIn} className={style.button}>Sign In with Google</Button> </>}
+                {userLoggedIn === true &&
+                    <>
+                        <img src={profilePic} className={style.profilepic} alt='User profile picture' loading='lazy' onError={handleImgError}/>
+                        <p>Hello {localStorage.getItem("userName")} :)</p>
+                    </>}
+                {userLoggedIn === true && <Button variant="contained" onClick={googleLogOut} className={style.button}>Log Out</Button> }
             </Card>
 
         </section>

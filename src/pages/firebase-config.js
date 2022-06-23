@@ -13,7 +13,7 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-
+//to get who is authenticated and access it in different files:
 export const auth = getAuth(app);
 
 // const analytics = getAnalytics(app);
