@@ -1,6 +1,7 @@
 @use 'variables';
 
 nav{
+  box-shadow: 0 0 2px 2px silver;
   ul{
     list-style: none;
     display: flex;
@@ -9,6 +10,9 @@ nav{
     align-items: center;
     li{
       padding: 1rem;
+      a{
+        text-decoration: none;
+      }
     }
   }
 

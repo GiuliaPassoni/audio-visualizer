@@ -2,8 +2,10 @@ import React, { useState} from "react";
 import {useEffect} from "react";
 import style from "../style/visualiser.module.scss"
 
-// import p5 from "p5";
+
 import p5 from 'p5';
+// import "p5/lib/addons/p5.sound.js"
+
 // import 'p5/lib/addons/p5.sound';
 
 
