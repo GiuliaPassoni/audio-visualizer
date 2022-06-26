@@ -2,15 +2,15 @@ import React, { useState} from "react";
 import {useEffect} from "react";
 import style from "../style/visualiser.module.scss"
 
-
-import p5 from 'p5';
-// import "p5/lib/addons/p5.sound.js"
-
+import "./../globals";
+import "p5/lib/addons/p5.sound";
+import * as p5 from "p5";
+// import p5 from 'p5';
+// import Sketch from 'react-p5';
 // import 'p5/lib/addons/p5.sound';
-
-
 // import {p5sound} from "p5/lib/addons/p5.sound.min";
-//import 'p5/lib/addons/p5.sound';
+
+
 //note: 3 possible youtube links i.e. 3 possible ways that they key will be embedded
 //https://www.npmjs.com/package/youtube-mp3-downloader
 
@@ -43,7 +43,6 @@ export default function Visualiser(){
     // let song;
 
     useEffect(() => {
-        // console.log('a load')
         if (song !== undefined) {
             song.pause();
         }
@@ -51,16 +50,18 @@ export default function Visualiser(){
     }, [])
 
     useEffect(() => {
+        console.log(p5ref, 'p5ref')
         if (p5ref === undefined) {
             p5ref  = new p5(Sketch, canvasRef.current);
+            console.log('p5ref again', p5ref);
         }
         // draw(canvasRef.current);
     }, [p5ref]);
 
     const Sketch = (p) => {
-        window.p5 = p;
+        // window.p5 = p;
         let fft, amp;
-
+        console.log('my song is here ', song, 'playing', songPlaying)
         class myEffect {
             constructor(x, y, z) {
                 this.x = x;
@@ -104,38 +105,52 @@ export default function Visualiser(){
                 // //shaky
                 // this.target_x = ((Math.random() - 0.5) * 2) * MAX_DEV;
                 // this.x = this.x * b + (1 - b) * (this.x + this.target_x);
-
             }
-
         }
-
 
         let test = new Array(30);
 
         p.setup = () => {
-            // amp = new p5.Amplitude();
-            // fft = new p5Class.FFT()
-            console.log(test.length)
-            for(let i=0;i<test.length;i++){
-                test[i] = new myEffect(50+i*50,10+i*50,1);
-            }
+            console.log(song, 'song in drawing')
+            amp = new p5.Amplitude();
+            // amp = new window.p5.Amplitude();
+            // amp = new p5.constructor.Amplitude();
+            // amp = new Object.getPrototypeOf(p).constructor.Amplitude();
+            fft = new p5.FFT();
+            // for(let i=0;i<test.length;i++){
+            //     test[i] = new myEffect(50+i*50,10+i*50,1);
+            // }
             p.createCanvas(640, 480)
         }
 
         p.draw = () => {
             p.background(0);
-            // const vol = amp.getLevel();
-            // const freqs = fft.analyze()
-            // console.log(vol, freqs);
+            const vol = amp.getLevel();
+            const freqs = fft.analyze()
             const h = Math.random() * 200;
             p.fill('red');
             p.stroke('white');
-            for(let i = 0;i<test.length;i++){
+            // for(let i=0;i<800;i+=50){
+            //     console.log(vol,'vol');
+            //     p.circle(50+50*i, i+(vol*30), 20);
+            // }
+            for (let i = 0; i < 800; i += 50) {
+                for (let j = 0; j < 800; j += 50) {
+                    p.fill(vol * 1000, vol * 200, j / 2);
+                    p.ellipse(i + Math.random(vol * 30), j + Math.random(vol * 30), 20);
+                }
+            }
+            // for(let i = 50; i < 1024; i+=5){
+            //     p.fill(freqs[i],Math.random()*i,Math.random()*i)
+            //     p.noStroke()
+            //     p.rect(i,0,5,freqs[i]*5)
+            // }
+            // for(let i = 0;i<test.length;i++){
                 //console.log(dataArray);
-                p.circle(50+50*i, dataArray[i+2], 20);
+                // p.circle(50+50*i, dataArray[i+2], 20);
                 //test[i].draw();
                 //test[i].update(h);
-            }
+            // }
         }
 
 
