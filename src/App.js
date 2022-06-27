@@ -41,16 +41,18 @@ const getDesignTokens = (mode) => ({
             ? {
                 // palette values for light mode
                 primary: amber, //for button background
-                background: {
-                    default: "pink"
-                }
+                styleOverrides:{
+                    background: {
+                        default: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)'
+                    }
+            }
             }
             : {
                 // palette values for dark mode
                 primary: deepOrange,
-                background: {
-                    default: "blue"
-                }
+                // background: {
+                //     default: "blue"
+                // }
             }),
     },
 });
@@ -82,8 +84,8 @@ function App() {
                    // style={styles.paperContainer}
               >
                   <Routes>
-                      <Route path='/' element={<Homepage/>} />
-                      <Route path='/login' element={<Login/>} />
+                      {/*<Route path='/' element={<Homepage/>} />*/}
+                      <Route path='/' element={<Login/>} />
                       <Route path='/visualiser' element={<Visualiser/>} />
                       <Route path='/support' element={<Support/>} />
                   </Routes>

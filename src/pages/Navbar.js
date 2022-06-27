@@ -19,9 +19,9 @@ export default function Navbar({mode, setMode}){
     return(
         <nav>
             <ul>
-                <li>
-                    <Link to='/'>Home</Link>
-                </li>
+                {/*<li>*/}
+                {/*    <Link to='/'>Home</Link>*/}
+                {/*</li>*/}
                 <li>
                     <Link to='/visualiser'>Visualiser</Link>
                 </li>
@@ -29,7 +29,7 @@ export default function Navbar({mode, setMode}){
                     <Link to='/support'>Support Us</Link>
                 </li>
                 <li>
-                    <Link to='/login'><Button variant="contained">Log In</Button></Link>
+                    <Link to='/'><Button variant="contained">Log In</Button></Link>
                 </li>
 
             {/*<Switch*/}
