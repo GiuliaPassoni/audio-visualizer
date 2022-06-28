@@ -1,7 +1,11 @@
 import React from "react";
+import style from './../style/footer.module.scss';
 
 export default function Footer(){
     return(
-        <h1>Copyright &copy; 2022 </h1>
+        <footer className={style.footer}>
+            <p>Music Visualiser</p>
+            <p>Copyright Giulia Passoni 2022 &copy;</p>
+        </footer>
     )
 }

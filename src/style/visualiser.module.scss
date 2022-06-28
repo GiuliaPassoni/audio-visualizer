@@ -2,10 +2,8 @@
   margin: auto;
   width: 800px;
   text-align: center;
-  section{
+  .visualContainer{
     margin: 1rem;
-  }
-  button{
-    margin: 1rem;
+    border: 3px solid red;
   }
 }
