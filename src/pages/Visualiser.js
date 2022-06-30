@@ -22,6 +22,7 @@ export default function Visualiser(){
     const [analyser, setAnalyser] = useState(undefined);
     let songPlayingRef = React.useRef();
     songPlayingRef.current = songPlaying;
+    // setSongPlaying(songPlayingRef);
     let canvasToRemove;
 
     useEffect(() => {
@@ -30,6 +31,7 @@ export default function Visualiser(){
         // }
         // mp3_to_hist('default.mp3');
         // console.log('effect 1, mp3hist', song);
+        ///////////////// only uncomment the below
         return () => {
             canvasToRemove.removeChild(canvasToRemove.children[0]);
         }
@@ -45,7 +47,8 @@ export default function Visualiser(){
 
     const Sketch = (p) => {
         // window.p5 = p;
-        let fft, amp, song;
+        let fft, amp, song, ct=0;
+        let pS = true;
         // console.log('my song is here ', songRef, 'playing', songPlaying)
 
 //         class myEffect {
@@ -113,14 +116,17 @@ export default function Visualiser(){
 
         p.draw = () => {
             //on load: songPlayingRef.current = false; songPlaying=false;
-            if(songPlayingRef.current===true && songPlaying===false) {
+            // console.log('ref', songPlayingRef.current, 'songPlaying', songPlaying, 'song', song)
+            if(songPlayingRef.current===true) {
                 console.log('if true', songPlayingRef.current, 'songPlaying', songPlaying)
                 song.play(); //click play: songPlayingRef.current = true, sets songPlaying=true; but the output afterwards is true songPlayingRef.current = true; songPlaying=false;
-            }else if(songPlaying===true){
-                song.pause()
-            }else{
+                ct = song.currentTime();
+                pS=false;
+            }else if (!pS){
                 console.log('if not', songPlayingRef.current,'songPlaying', songPlaying) //false, false
-                song.pause();// click pause: triggers songPlayingRef.current = false and sets songPlaying=false;
+                song.stop();// click pause: triggers songPlayingRef.current = false and sets songPlaying=false;
+                song.jump(ct);
+                pS=true;
             }
             p.background(0);
             const vol = amp.getLevel();
@@ -179,13 +185,13 @@ export default function Visualiser(){
         // }
 
         // song.pause();
-        // setSongPlaying(false);
+        setSongPlaying(false);
         console.log('click pause', songPlaying)
     }
 
     return(
         <div className={style.visualiser}>
-            <Converter/>
+            {/*<Converter/>*/}
             <div className={style.visualContainer}>
                 <section ref={canvasRef} className={style.canvasSec}/>
                 <Button onClick={songPlaying ? pauseSong : playSong} variant="outlined">{songPlaying ? 'Pause' : 'Play'}</Button>

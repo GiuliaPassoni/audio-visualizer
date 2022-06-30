@@ -57,7 +57,6 @@ const getDesignTokens = (mode) => ({
     },
 });
 
-
 function App() {
     const [mode, setMode] = React.useState('light');
     // const colorMode = React.useMemo(
@@ -74,6 +73,7 @@ function App() {
 
     // Update the theme only if the mode changes
     const theme = React.useMemo(() => createTheme(getDesignTokens(mode)), [mode]);
+
 
   return (
       // <ColorModeContext.Provider value={colorMode}> {/*remove this if going for default*/}

@@ -32,9 +32,9 @@ export default function Navbar({mode, setMode}){
                      Music Visualiser
                 </Typography>
                 <Stack direction="row" spacing={2}>
-                    <Button><Link to='/' underline="none">Log In</Link></Button>
-                    <Button><Link to='/support'>Support Us</Link></Button>
-                    <Button><Link to='/visualiser'>Visualiser</Link></Button>
+                    <Button variant='contained'><Link to='/' underline="none">Log In</Link></Button>
+                    <Button variant='contained'><Link to='/support'>Support Us</Link></Button>
+                    <Button variant='contained'><Link to='/visualiser'>Visualiser</Link></Button>
                     <IconButton sx={{ ml: 1 }} onClick={handleModeChange} color="default">
                         {mode === 'dark' ? <FontAwesomeIcon icon={solid('moon')} />:<FontAwesomeIcon icon={solid('sun')} />}
                     </IconButton>
